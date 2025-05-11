@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="id"> 
+     <style>
+          @import url('https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap');
+     </style>
+     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.5/font/bootstrap-icons.css">
+     <head> 
+          <meta charset="UTF-8" /> 
+          <meta name="viewport" content="width=device-width, initial-scale=1.0"/> 
+          <title>AI Summarizer</title> 
+          <script src="https://cdn.tailwindcss.com"></script>
+     </head> 
+
+     <body class="font-[poppins]"> 
+          <header class="p-[16px] bg-blue-500 text-white"> 
+               <h title="sidebar"><i class="bi bi-layout-sidebar-inset xl:text-[25px] px-[5px] py-[1px] rounded hover:bg-blue-300 transition duration-500"></i></h>
+               <h class="ml-[10px] font-bold text-[20px] xl:text-[30px]">AI Summarizer</h> 
+          </header> 
+          
+          <main class="flex flex-col xl:flex-row justify-center items-center"> 
+               <!--input teks-->
+               <div class="relative flex flex-col">
+                    <p class="text-[10px] xl:text-[15px] mb-[5px] mt-[30px] xl:mt-[50px] text-center">Masukkan teks untuk diringkas</p> 
+                    <textarea class="text-[8px] xl:text-[15px] border-2 border-blue-300 rounded-lg p-[10px] mx-[40px] w-[300px] xl:w-[500px] h-[150px] xl:h-[300px]"
+                    rows="5" 
+                    cols="50" 
+                    title="Input text area" 
+                    placeholder="Masukkan teks di sini" 
+                    ></textarea> 
+                    
+                    <i title="insert file" class="bi bi-paperclip absolute bottom-[10px] left-[50px]"></i>
+                    <i title="copy text" class="bi bi-clipboard absolute bottom-[10px] right-[80px]"></i>
+                    <i title="clear text" class="bi bi-trash3 absolute bottom-[10px] right-[55px]"></i>
+              </div>
+               <!--hasil ringkasan-->
+               <div class="relative flex flex-col">
+                    <p class="text-[10px] xl:text-[15px] mb-[5px] mt-[30px] xl:mt-[50px] text-center">Hasil Ringkasan</p>
+                    <textarea class="text-[8px] xl:text-[15px] border-2 border-blue-300 rounded-lg p-[10px] mx-[40px] w-[300px] xl:w-[500px] h-[150px] xl:h-[300px]"
+                    rows="5" 
+                    cols="50" 
+                    title="Hasil ringkasan" 
+                    placeholder="Hasil ringkasan akan muncul di sini" 
+                    ></textarea>
+                    <i title="copy text" class="bi bi-clipboard absolute bottom-[10px] right-[55px]"></i>
+               </div>
+          </main>
+          
+          <section class="flex flex-col">
+               <h2 class="text-center text-[10px] xl:text-[15px] font-semibold p-[5px] mt-[10px]">Riwayat Ringkasan</h2>
+               </ul>
+          </section>
+          
+     </body>
+</html>
