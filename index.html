@@ -9,46 +9,60 @@
           <meta name="viewport" content="width=device-width, initial-scale=1.0"/> 
           <title>AI Summarizer</title> 
           <script src="https://cdn.tailwindcss.com"></script>
+
      </head> 
 
      <body class="font-[poppins]"> 
           <header class="p-[16px] bg-blue-500 text-white"> 
-               <h title="sidebar"><i class="bi bi-layout-sidebar-inset xl:text-[25px] px-[5px] py-[1px] rounded hover:bg-blue-300 transition duration-500"></i></h>
-               <h class="ml-[10px] font-bold text-[20px] xl:text-[30px]">AI Summarizer</h> 
+               <button id="toggle-sidebar" title="open sidebar"><i class="bi bi-layout-sidebar-inset xl:text-[25px] px-[5px] py-[1px] rounded hover:bg-blue-300 transition duration-500"></i></button>
+               <h id="title" class="ml-[10px] font-bold text-[20px] xl:text-[30px] transition duration-400">AI Summarizer</h> 
           </header> 
           
-          <main class="flex flex-col xl:flex-row justify-center items-center"> 
+          <!-- riwayat ringkasan-->
+          <section id="sidebar" class="fixed z-[9999] top-0 left-0 h-full w-[150px] xl:w-[250px] bg-white text-blue-500 -translate-x-full transition-transform duration-300 ease-in-out">
+               <button id="close-sidebar" title="close sidebar"><i class="bi bi-layout-sidebar-inset xl:text-[25px] absolute top-[20px] left-[15px] px-[5px] py-[1px] rounded hover:bg-blue-300 transition duration-500"></i></button>
+               <h2 class="text-center xl:mt-[30px] text-[10px] xl:text-[15px] font-semibold p-[5px] mt-[15px]">Riwayat Ringkasan</h2>
+               <ul id="riwayatRingkasan" class="space-y-2 p-4 text-sm overflow-y-auto h-[300px] xl:h-[500px]"></ul>
+          </section>
+          
+          <main id="main-content" class="flex flex-col xl:flex-row justify-center items-center transition duration-300 ease-in-out"> 
                <!--input teks-->
                <div class="relative flex flex-col">
                     <p class="text-[10px] xl:text-[15px] mb-[5px] mt-[30px] xl:mt-[50px] text-center">Masukkan teks untuk diringkas</p> 
-                    <textarea class="text-[8px] xl:text-[15px] border-2 border-blue-300 rounded-lg p-[10px] mx-[40px] w-[300px] xl:w-[500px] h-[150px] xl:h-[300px]"
+                    <textarea id="inputText" class="text-[8px] xl:text-[15px] border-2 border-blue-300 rounded-lg p-[5px] mx-[20px] w-[300px] xl:w-[450px] h-[150px] xl:h-[300px]"
                     rows="5" 
                     cols="50" 
                     title="Input text area" 
                     placeholder="Masukkan teks di sini" 
                     ></textarea> 
                     
-                    <i title="insert file" class="bi bi-paperclip absolute bottom-[10px] left-[50px]"></i>
-                    <i title="copy text" class="bi bi-clipboard absolute bottom-[10px] right-[80px]"></i>
-                    <i title="clear text" class="bi bi-trash3 absolute bottom-[10px] right-[55px]"></i>
+                    <i id="buttonInsert" title="insert file" class="bi bi-paperclip text-[10px] xl:text-[20px] absolute bottom-[10px] left-[30px] rounded px-[5px] py-[1px] hover:bg-gray-300 transition duration-500"></i>
+                    <input type="file" id="fileInput" accept=".txt" class="hidden">
+
+
+                    <i id="buttonCopyInput" title="copy text" class="bi bi-clipboard text-[10px] xl:text-[20px] absolute bottom-[10px] left-[55px] rounded px-[5px] py-[1px] hover:bg-gray-300 transition duration-500"></i>
+                    <i id="buttonReset" title="clear text" class="bi bi-trash3 text-[10px] xl:text-[20px] absolute bottom-[10px] right-[55px] rounded px-[5px] py-[1px] hover:bg-gray-300 transition duration-500"
+                    onClick="reset()"></i>
+                   
+                    
+                    <i id="buttonRingkas" title="send text" class="bi bi-arrow-up-circle-fill text-[10px] xl:text-[20px] absolute bottom-[10px] right-[30px] rounded px-[5px] py-[1px] hover:bg-gray-300 transition duration-500" 
+                    onClick="ringkas()"></i>
               </div>
-               <!--hasil ringkasan-->
+              
+              <!--hasil ringkasan-->
                <div class="relative flex flex-col">
                     <p class="text-[10px] xl:text-[15px] mb-[5px] mt-[30px] xl:mt-[50px] text-center">Hasil Ringkasan</p>
-                    <textarea class="text-[8px] xl:text-[15px] border-2 border-blue-300 rounded-lg p-[10px] mx-[40px] w-[300px] xl:w-[500px] h-[150px] xl:h-[300px]"
+                    <textarea id="hasilRingkasan" class="text-[8px] xl:text-[15px] border-2 border-blue-300 rounded-lg p-[5px] mx-[20px] w-[300px] xl:w-[450px] h-[150px] xl:h-[300px]"
                     rows="5" 
                     cols="50" 
                     title="Hasil ringkasan" 
                     placeholder="Hasil ringkasan akan muncul di sini" 
                     ></textarea>
-                    <i title="copy text" class="bi bi-clipboard absolute bottom-[10px] right-[55px]"></i>
+                    <i id="buttonCopyOutput" title="copy text" class="bi bi-clipboard text-[10px] xl:text-[20px] absolute bottom-[10px] right-[40px] rounded px-[5px] py-[1px] hover:bg-gray-300 transition duration-500"></i>
                </div>
           </main>
           
-          <section class="flex flex-col">
-               <h2 class="text-center text-[10px] xl:text-[15px] font-semibold p-[5px] mt-[10px]">Riwayat Ringkasan</h2>
-               </ul>
-          </section>
           
+     <script src="main.js"></script>  
      </body>
 </html>
