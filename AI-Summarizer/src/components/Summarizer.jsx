@@ -1,4 +1,5 @@
 import React from "react";
+import ReactMarkdown from "react-markdown";
 import "bootstrap-icons/font/bootstrap-icons.css";
 
 export default function Summarizer({
