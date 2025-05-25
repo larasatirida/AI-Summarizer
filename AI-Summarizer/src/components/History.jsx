@@ -32,7 +32,7 @@ export default function History({
               className="bg-blue-100 text-blue-800 p-[5px] xl:p-[10px] rounded text-[10px] xl:text-[15px] hover:bg-blue-300 transition duration-500 cursor-pointer"
               onClick={() => {
                 setSummary(item);
-                setInputText(item);
+                setInputText();
               }}
             >
               {item.length > 100 ? item.slice(0, 100) + "..." : item}

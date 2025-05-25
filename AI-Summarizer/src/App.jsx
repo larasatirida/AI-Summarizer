@@ -3,12 +3,15 @@ import Header from "./components/Header";
 import History from "./components/History";
 import Summarizer from "./components/Summarizer";
 
+
 export default function App() {
   const [inputText, setInputText] = useState("");
   const [summary, setSummary] = useState("belum ada ringkasan");
   const [history, setHistory] = useState([]);
   const [sidebarOpen, setSidebarOpen] = useState(false);
   const [model, setModel] = useState("deepseek/deepseek-chat-v3-0324:free");
+  const [loading, setLoading] = useState(false);
+
 
 useEffect(() => { 
 const storedHistory = 
@@ -16,21 +19,55 @@ JSON.parse(localStorage.getItem("summaryHistory")) || [];
     setHistory(storedHistory); 
   }, []); 
 
-const handleSummarize = () => { 
+const handleSummarize = async () => { 
 if (inputText.trim() === "") return; 
 // Simulasi ringkasan: output sama dengan input 
-    setSummary(inputText); 
- const newHistory = [...history, inputText]; 
+    setSummary(" "); 
+    setLoading(true);
+    // Kirim teks ke API untuk diringkas 
+    try { 
+      const response = await fetch( 
+        "https://openrouter.ai/api/v1/chat/completions", 
+        { 
+          method: "POST", 
+          headers: { 
+            "Content-Type": "application/json", 
+            Authorization: `Bearer ${import.meta.env.VITE_OPENROUTER_API_KEY}`, 
+          }, 
+          body: JSON.stringify({ 
+            model: model, 
+            messages: [ 
+              { 
+                role: "user", 
+                content: `Summarize the following text without any addition answer. Answer in the language the user speaks:\n${inputText}`, 
+              }, 
+            ], 
+          }), 
+        } 
+      );
+
+    if (!response.ok) {
+      throw new Error("Failed to fetch summary");
+    }
+
+    const data = await response.json(); 
+    setSummary(data.choices[0].message.content); 
+    const newHistory = [...history, data.choices[0].message.content]; 
     setHistory(newHistory); 
     localStorage.setItem("summaryHistory", JSON.stringify(newHistory)); 
-  }; 
-
+  } 
+  catch (error) { 
+    console.error("Gagal mengambil data ringkasan:", error);
+  } finally { 
+  setLoading(false); 
+  } 
+};
 
   // Reset input & summary
   const handleReset = () => {
     setInputText("");
     setSummary("belum ada ringkasan");
-  };
+  }
 
   // Copy hasil ringkasan
   const handleCopy = (text) => {
